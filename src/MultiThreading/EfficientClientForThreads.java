@@ -8,6 +8,7 @@ import java.util.concurrent.Executors;
 
 public class EfficientClientForThreads {
     public static void main(String[] args) throws InterruptedException {
+        // yes
         // 7. Thread pool
         ExecutorService es = Executors.newFixedThreadPool(1);
         for(int i = 1; i <= 1000000; i++){
