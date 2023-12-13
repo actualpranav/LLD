@@ -1,4 +1,4 @@
-package CallableInterface.Client.Mergesort1;
+package CallableInterface.Mergesort1;
 
 //import java.sql.Array;
 import java.util.ArrayList;
