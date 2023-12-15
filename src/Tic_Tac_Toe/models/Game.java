@@ -3,16 +3,31 @@ package Tic_Tac_Toe.models;
 import Tic_Tac_Toe.enums.GameState;
 import Tic_Tac_Toe.models.winningStratergies.WinningStratergy;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Game {
     private Board board;
+
+//    private int dimension;
+
     private List<Player> players;
     private GameState gameState;
     private Player winner;
     private List<Move> moves;
     private int currentPlayerIndex;
-    private List<WinningStratergy> winningStatergies;
+    private List<WinningStratergy> winningStrategies;
+
+    private Game(Builder builder){
+        this.players = builder.players;
+        this.winningStrategies = builder.winningStrategies;
+        this.board = new Board(builder.dimension);
+
+        this.gameState = GameState.IN_PROGRESS;
+        this.winner = null;
+        this.moves = new ArrayList<>();
+        this.currentPlayerIndex = 0;
+    }
 
     public Board getBoard() {
         return board;
@@ -62,15 +77,47 @@ public class Game {
         this.currentPlayerIndex = currentPlayerIndex;
     }
 
-    public List<WinningStratergy> getWinningStatergies() {
-        return winningStatergies;
+    public List<WinningStratergy> getWinningStrategies() {
+        return winningStrategies;
     }
 
-    public void setWinningStatergies(List<WinningStratergy> winningStatergies) {
-        this.winningStatergies = winningStatergies;
+    public void setWinningStrategies(List<WinningStratergy> winningStrategies) {
+        this.winningStrategies = winningStrategies;
+//        return this;
     }
 
+    public static Builder getBuilder(){
+        return new Builder();
+    }
+    public static class Builder{
+        private int dimension;
+        private List<Player> players;
+        private List<WinningStratergy> winningStrategies;
 
+        public Builder setDimension(int dimension){
+            this.dimension = dimension;
+            return this;
+        }
 
+        public Builder setPlayers(List<Player> players){
+            this.players = players;
+            return this;
+        }
 
+        public Builder setWinningStrategies(List<WinningStratergy> winningStrategies){
+            this.winningStrategies = winningStrategies;
+            return this;
+        }
+
+        private void validate(){
+            //
+
+        }
+        public Game build(){
+            //validations
+            validate();
+            return new Game(this);
+
+        }
+    }
 }

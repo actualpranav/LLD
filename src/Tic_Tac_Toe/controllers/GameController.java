@@ -1,19 +1,30 @@
 package Tic_Tac_Toe.controllers;
 
+import Tic_Tac_Toe.models.Game;
+import Tic_Tac_Toe.models.Player;
+import Tic_Tac_Toe.models.winningStratergies.WinningStratergy;
+
+import java.util.List;
+
 public class GameController {
-    public void startGame(){
+    // class without any atribute is called stateless class
+    public Game startGame(int dimension, List<Player> players, List<WinningStratergy> winningStratergies) {
+    return null;
+    }
+
+    public void displayBoard(Game game){
+        game.getBoard().displayBoard();
+    }
+
+    public void makeMove(Game game){
 
     }
 
-    public void display(){
+    public void checkWinner(Game game){
 
     }
 
-    public void makeMove(){
-
-    }
-
-    public void checkWinner(){
+    public void undo(Game game){
 
     }
 

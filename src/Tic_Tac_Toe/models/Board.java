@@ -4,7 +4,16 @@ import java.util.List;
 
 public class Board {
     private int size;
+    private List<List<Cell>> board;
 
+    Board(int dimension){
+        this.size = dimension;
+        initialiseBoard();
+    }
+
+    public void initialiseBoard(){
+
+    }
     public int getSize() {
         return size;
     }
@@ -21,6 +30,10 @@ public class Board {
         this.board = board;
     }
 
-    private List<List<Cell>> board;
+
+
+    public void displayBoard(){
+
+    }
 
 }
