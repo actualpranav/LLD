@@ -101,6 +101,20 @@ public class Game {
         Move move = currentPlayer.makeMove(this.getBoard());
         this.moves.add(move);
 
+        //update the hashmap for the board
+        for(WinningStratergy winningStratergy : this.winningStrategies){
+            winningStratergy.updateCount(this.getBoard(), move);
+
+        }
+
+        // check for winner
+        for(WinningStratergy winningStratergy : this.winningStrategies){
+            if(winningStratergy.checkWinner(board,move)){
+                this.setWinner(currentPlayer);
+                this.setGameState(GameState.COMPLETED);
+            }
+        }
+
 
         int nextPlayerIndex = currentPlayerIndex + 1;
         nextPlayerIndex %= this.getBoard().getSize() - 1;

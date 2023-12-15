@@ -10,6 +10,7 @@ import Tic_Tac_Toe.models.exceptions.DimensionException;
 import Tic_Tac_Toe.models.exceptions.DuplicateSymbolException;
 import Tic_Tac_Toe.models.exceptions.PlayerCountException;
 import Tic_Tac_Toe.models.winningStratergies.ColumnWinningStratergy;
+import Tic_Tac_Toe.models.winningStratergies.DiagonalWinningStrategy;
 import Tic_Tac_Toe.models.winningStratergies.RowWinningStratergy;
 import Tic_Tac_Toe.models.winningStratergies.WinningStratergy;
 
@@ -27,8 +28,9 @@ public class Main {
 
         List<WinningStratergy> winningStratergies = new ArrayList<>();
 
-        winningStratergies.add(new RowWinningStratergy());
-        winningStratergies.add(new ColumnWinningStratergy());
+        winningStratergies.add(new RowWinningStratergy(dimension, players));
+        winningStratergies.add(new ColumnWinningStratergy(dimension, players));
+        winningStratergies.add(new DiagonalWinningStrategy(players));
 
         Game game = gameController.
                 startGame(dimension, players, winningStratergies);

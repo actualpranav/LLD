@@ -20,11 +20,11 @@ public class Cell {
         this.row = row;
     }
 
-    public int getcolumn() {
+    public int getColumn() {
         return column;
     }
 
-    public void setcolumn(int column) {
+    public void setColumn(int column) {
         this.column = column;
     }
 
