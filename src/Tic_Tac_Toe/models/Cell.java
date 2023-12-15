@@ -4,7 +4,7 @@ import Tic_Tac_Toe.enums.CellState;
 
 public class Cell {
     private int row;
-    private int coloumn;
+    private int column;
     private CellState cellState;
     private Player player;
 
@@ -16,12 +16,12 @@ public class Cell {
         this.row = row;
     }
 
-    public int getColoumn() {
-        return coloumn;
+    public int getcolumn() {
+        return column;
     }
 
-    public void setColoumn(int coloumn) {
-        this.coloumn = coloumn;
+    public void setcolumn(int column) {
+        this.column = column;
     }
 
     public CellState getCellState() {

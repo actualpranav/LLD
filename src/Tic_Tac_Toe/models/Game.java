@@ -1,9 +1,15 @@
 package Tic_Tac_Toe.models;
 
 import Tic_Tac_Toe.enums.GameState;
+import Tic_Tac_Toe.enums.PlayerType;
+import Tic_Tac_Toe.models.exceptions.BotCountException;
+import Tic_Tac_Toe.models.exceptions.DimensionException;
+import Tic_Tac_Toe.models.exceptions.DuplicateSymbolException;
+import Tic_Tac_Toe.models.exceptions.PlayerCountException;
 import Tic_Tac_Toe.models.winningStratergies.WinningStratergy;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 public class Game {
@@ -109,11 +115,50 @@ public class Game {
             return this;
         }
 
-        private void validate(){
-            //
-
+        private void validateBotCount() throws BotCountException{
+            // only 1 bot
+            int botCount = 0;
+            for(Player p: players){
+                if(p.getPlayerType() == PlayerType.BOT){
+                    botCount++;
+                }
+            }
+            if(botCount > 1){
+                throw new BotCountException("Bot count is more than 1, Invalid game");
+            }
         }
-        public Game build(){
+
+        private void  validateBoardSize() throws DimensionException{
+            // size of board is atleast 3
+            if(dimension < 3){
+                throw new DimensionException("Invalid board, Board size should be atleast 3");
+            }
+        }
+
+        private void validatePlayerCount() throws PlayerCountException{
+            // no. of players is n - 1
+            if(players.size() != dimension-1){
+                throw new PlayerCountException("Invalid player count, should be 1 less than the dimension");
+            }
+        }
+
+        private void validateDuplicateSymbols() throws DuplicateSymbolException{
+            // no duplicate symbols
+            HashSet<Character> symbols = new HashSet<>();
+            for(Player p : players){
+                if(symbols.contains(p.getSymbol().getaChar())){
+                    throw new DuplicateSymbolException("Invalid symbol, Duplicate Symbol");
+                }
+                symbols.add(p.getSymbol().getaChar());
+            }
+        }
+        private void validate() throws BotCountException, DimensionException, PlayerCountException, DuplicateSymbolException{
+            validateBotCount();
+            validateBoardSize();
+            validatePlayerCount();
+            validateDuplicateSymbols();
+        }
+        public Game build() throws BotCountException, DimensionException, PlayerCountException, DuplicateSymbolException{
             //validations
             validate();
             return new Game(this);
