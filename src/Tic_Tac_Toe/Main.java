@@ -30,25 +30,20 @@ public class Main {
         winningStratergies.add(new RowWinningStratergy());
         winningStratergies.add(new ColumnWinningStratergy());
 
-        Game game = Game.getBuilder().setDimension(dimension).setPlayers(players).setWinningStrategies(winningStratergies).build();
+        Game game = gameController.
+                startGame(dimension, players, winningStratergies);
 //        Game game = gameController.startGame(3, players, winningStratergies);
         System.out.println("game started");
 
         while(game.getGameState() == GameState.IN_PROGRESS){
             gameController.displayBoard(game);
             gameController.makeMove(game);
-
-            if(game.getGameState() == GameState.COMPLETED){
-                System.out.println("Game is completed. Winner is " + game.getWinner().getName());
-                break;
-            }
-            if(game.getGameState() == GameState.DRAW){
-                System.out.println("Game is a Draw");
-                break;
-            }
-
         }
-
-
+        if(game.getGameState() == GameState.COMPLETED){
+            System.out.println("Game is completed. Winner is " + game.getWinner().getName());
+        }
+        if(game.getGameState() == GameState.DRAW){
+            System.out.println("Game is a Draw");
+        }
     }
 }

@@ -92,6 +92,23 @@ public class Game {
 //        return this;
     }
 
+    public void makeMove(){
+        int currentPlayerIndex = this.getCurrentPlayerIndex();
+        Player currentPlayer = this.getPlayers().get(currentPlayerIndex);
+
+
+        // Update list of moves
+        Move move = currentPlayer.makeMove(this.getBoard());
+        this.moves.add(move);
+
+
+        int nextPlayerIndex = currentPlayerIndex + 1;
+        nextPlayerIndex %= this.getBoard().getSize() - 1;
+        // this.getPlayers().size()
+        this.setCurrentPlayerIndex(nextPlayerIndex);
+    }
+
+
     public static Builder getBuilder(){
         return new Builder();
     }
