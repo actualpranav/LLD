@@ -18,12 +18,12 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) throws BotCountException, DimensionException, PlayerCountException, DuplicateSymbolException {
-        int dimension = 1;
+        int dimension = 3;
 
         GameController gameController = new GameController();
         List<Player> players = new ArrayList<>();
         players.add(new Player(1, "Pranav", new Symbol('X')));
-        players.add(new Player(2, "yoko", new Symbol('X')));
+        players.add(new Player(2, "yoko", new Symbol('O')));
 
         List<WinningStratergy> winningStratergies = new ArrayList<>();
 
