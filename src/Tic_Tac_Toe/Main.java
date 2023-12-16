@@ -9,10 +9,7 @@ import Tic_Tac_Toe.models.exceptions.BotCountException;
 import Tic_Tac_Toe.models.exceptions.DimensionException;
 import Tic_Tac_Toe.models.exceptions.DuplicateSymbolException;
 import Tic_Tac_Toe.models.exceptions.PlayerCountException;
-import Tic_Tac_Toe.models.winningStratergies.ColumnWinningStratergy;
-import Tic_Tac_Toe.models.winningStratergies.DiagonalWinningStrategy;
-import Tic_Tac_Toe.models.winningStratergies.RowWinningStratergy;
-import Tic_Tac_Toe.models.winningStratergies.WinningStratergy;
+import Tic_Tac_Toe.models.winningStratergies.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +28,7 @@ public class Main {
         winningStratergies.add(new RowWinningStratergy(dimension, players));
         winningStratergies.add(new ColumnWinningStratergy(dimension, players));
         winningStratergies.add(new DiagonalWinningStrategy(players));
+        winningStratergies.add(new CornerWinningStrategy());
 
         Game game = gameController.
                 startGame(dimension, players, winningStratergies);
@@ -41,6 +39,8 @@ public class Main {
             gameController.displayBoard(game);
             gameController.makeMove(game);
         }
+        gameController.displayBoard(game);
+
         if(game.getGameState() == GameState.COMPLETED){
             System.out.println("Game is completed. Winner is " + game.getWinner().getName());
         }

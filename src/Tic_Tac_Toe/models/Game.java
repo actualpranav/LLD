@@ -112,7 +112,12 @@ public class Game {
             if(winningStratergy.checkWinner(board,move)){
                 this.setWinner(currentPlayer);
                 this.setGameState(GameState.COMPLETED);
+                return;
             }
+        }
+        if(this.moves.size() == board.getSize() * board.getSize()){
+            this.setGameState(GameState.DRAW);
+            return;
         }
 
 
