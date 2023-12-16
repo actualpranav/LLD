@@ -9,25 +9,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class DiagonalWinningStrategy implements WinningStratergy{
-    private int dimension;
-    private Map<Integer, Map<Player, Integer>> countMap;
+public class DiagonalWinningStrategy extends MapWinningStrategies{
 
-    public DiagonalWinningStrategy(List<Player> playerList){
-        this.dimension = 2;
-        this.countMap = new HashMap<>();
-        initialiseCountMap(playerList);
-    }
 
-    private void initialiseCountMap(List<Player> playerList){
-        for(int i = 0; i < dimension; i++){
-            countMap.put(i, new HashMap<>());
-            for (Player p: playerList){
-                // we store reference of player
-                countMap.get(i).put(p, 0);
-            }
-        }
-
+    public DiagonalWinningStrategy(List<Player> playerList) {
+        super(2, playerList);
     }
 
     @Override
@@ -39,15 +25,11 @@ public class DiagonalWinningStrategy implements WinningStratergy{
 
         // left diagonal is type0
         if(row == column) {
-            int existingCount = countMap.get(0).get(player);
-            int newCount = existingCount + 1;
-            countMap.get(0).put(player, newCount);
+            updateCountMap(0, player);
         }
         // left diagonal is type1
         if(row + column == board.getSize() - 1) {
-            int existingCount = countMap.get(1).get(player);
-            int newCount = existingCount + 1;
-            countMap.get(1).put(player, newCount);
+            updateCountMap(1, player);
         }
     }
     @Override
@@ -57,22 +39,18 @@ public class DiagonalWinningStrategy implements WinningStratergy{
         int row = cell.getRow();
         int column = cell.getColumn();
 
-        boolean leftDiagonalAnswer = false;
         if(row == column){
-            if(countMap.get(0).get(player) == board.getSize()){
-                leftDiagonalAnswer = true;
+            if (checkCountMapForWinner(0, player, board.getSize())) {
+                return true;
             }
         }
 
-        boolean rightDiagolanAnswer = false;
-        if(row + column == board.getSize()){
-            if(countMap.get(1).get(player) == board.getSize()){
-                rightDiagolanAnswer = true;
+        if(row + column == board.getSize() - 1){
+            if (checkCountMapForWinner(1, player, board.getSize())) {
+                return true;
             }
-//            rightDiagolanAnswer = true;
         }
 
-        if(leftDiagonalAnswer || rightDiagolanAnswer) return  true;
         return false;
     }
 }

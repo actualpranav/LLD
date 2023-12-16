@@ -5,14 +5,12 @@ import Tic_Tac_Toe.models.Cell;
 import Tic_Tac_Toe.models.Move;
 import Tic_Tac_Toe.models.Player;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-public class RowWinningStratergy extends MapWinningStrategies{
+public class ColumnWinningStrategy extends MapWinningStrategies{
 
 
-    public RowWinningStratergy(int dimension, List<Player> playerList) {
+    public ColumnWinningStrategy(int dimension, List<Player> playerList) {
         super(dimension, playerList);
     }
 
@@ -20,15 +18,15 @@ public class RowWinningStratergy extends MapWinningStrategies{
     public void updateCount(Board board, Move lastMove){
         Cell cell = lastMove.getCell();
         Player player = lastMove.getPlayer();
-        int row = cell.getRow();
-        updateCountMap(row, player);
+        int column = cell.getColumn();
+        updateCountMap(column, player);
     }
     @Override
     public boolean checkWinner(Board board, Move lastMove){
         Cell cell = lastMove.getCell();
         Player player = lastMove.getPlayer();
-        int row = cell.getRow();
+        int column = cell.getColumn();
 
-        return checkCountMapForWinner(row, player, board.getSize());
+        return checkCountMapForWinner(column, player, board.getSize());
     }
 }

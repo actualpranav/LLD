@@ -1,7 +1,6 @@
 package Tic_Tac_Toe.models.winningStratergies;
 
 import Tic_Tac_Toe.models.Board;
-import Tic_Tac_Toe.models.Cell;
 import Tic_Tac_Toe.models.Move;
 import Tic_Tac_Toe.models.Player;
 
@@ -9,11 +8,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ColumnWinningStratergy implements WinningStratergy{
+public abstract class MapWinningStrategies implements WinningStratergy{
+
     private int dimension;
     private Map<Integer, Map<Player, Integer>> countMap;
 
-    public ColumnWinningStratergy(int dimension, List<Player> playerList){
+    public MapWinningStrategies(int dimension, List<Player> playerList){
         this.dimension = dimension;
         this.countMap = new HashMap<>();
         initialiseCountMap(playerList);
@@ -30,23 +30,25 @@ public class ColumnWinningStratergy implements WinningStratergy{
 
     }
 
-    @Override
-    public void updateCount(Board board, Move lastMove){
-        Cell cell = lastMove.getCell();
-        Player player = lastMove.getPlayer();
-        int column = cell.getColumn();
-
-        int existingCount = countMap.get(column).get(player);
+    public void updateCountMap(int key, Player player){
+        int existingCount = countMap.get(key).get(player);
         int newCount = existingCount + 1;
-        countMap.get(column).put(player, newCount);
+        countMap.get(key).put(player, newCount);
     }
-    @Override
-    public boolean checkWinner(Board board, Move lastMove){
-        Cell cell = lastMove.getCell();
-        Player player = lastMove.getPlayer();
-        int column = cell.getColumn();
 
-        if(countMap.get(column).get(player) == dimension) return  true;
+    public boolean checkCountMapForWinner(int key, Player player, int boardSize){
+        if(countMap.get(key).get(player) == boardSize) return  true;
         return false;
     }
+
+    // no need to override interface methods, abstract class implementing a interface.
+//    @Override
+//    public boolean checkWinner(Board board, Move lastMove) {
+//        return false;
+//    }
+//
+//    @Override
+//    public void updateCount(Board board, Move lastMove) {
+//
+//    }
 }

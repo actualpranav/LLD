@@ -26,7 +26,7 @@ public class Main {
         List<WinningStratergy> winningStratergies = new ArrayList<>();
 
         winningStratergies.add(new RowWinningStratergy(dimension, players));
-        winningStratergies.add(new ColumnWinningStratergy(dimension, players));
+        winningStratergies.add(new ColumnWinningStrategy(dimension, players));
         winningStratergies.add(new DiagonalWinningStrategy(players));
         winningStratergies.add(new CornerWinningStrategy());
 
