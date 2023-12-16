@@ -57,7 +57,8 @@ public class Player {
         chosenCell.setPlayer(this);
         chosenCell.setCellState(CellState.OCCUPIED);
 
-        Move move = new Move();
+        Move move = new Move(chosenCell, this);
+        // added arguments for bot "?"
         move.setPlayer(this);
         move.setCell(chosenCell);
         return move;

@@ -1,7 +1,9 @@
 package Tic_Tac_Toe;
 
 import Tic_Tac_Toe.controllers.GameController;
+import Tic_Tac_Toe.enums.BotDifficultyLevel;
 import Tic_Tac_Toe.enums.GameState;
+import Tic_Tac_Toe.models.Bot;
 import Tic_Tac_Toe.models.Game;
 import Tic_Tac_Toe.models.Player;
 import Tic_Tac_Toe.models.Symbol;
@@ -21,7 +23,8 @@ public class Main {
         GameController gameController = new GameController();
         List<Player> players = new ArrayList<>();
         players.add(new Player(1, "Pranav", new Symbol('X')));
-        players.add(new Player(2, "yoko", new Symbol('O')));
+//        players.add(new Player(2, "yoko", new Symbol('O')));
+        players.add(new Bot(2, "Bot", new Symbol('O'), BotDifficultyLevel.HARD));
 
         List<WinningStratergy> winningStratergies = new ArrayList<>();
 
