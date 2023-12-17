@@ -49,13 +49,10 @@ public class CornerWinningStrategy implements WinningStrategy {
         char symbolAtBottomLeft = bottomLeftCell.getPlayer().getSymbol().getaChar();
         char symbolAtBottomRight = bottomRightCell.getPlayer().getSymbol().getaChar();
 
-        if (playerSymbol == symbolAtTopLeft &&
+        return playerSymbol == symbolAtTopLeft &&
                 symbolAtTopLeft == symbolAtTopRight &&
                 symbolAtTopRight == symbolAtBottomLeft &&
-                symbolAtBottomLeft == symbolAtBottomRight) {
-            return true;
-        }
-        return false;
+                symbolAtBottomLeft == symbolAtBottomRight;
     }
 
     @Override
