@@ -24,7 +24,7 @@ public class Main {
         List<Player> players = new ArrayList<>();
         players.add(new Player(1, "Pranav", new Symbol('X')));
 //        players.add(new Player(2, "yoko", new Symbol('O')));
-        players.add(new Bot(2, "Bot", new Symbol('O'), BotDifficultyLevel.HARD));
+        players.add(new Bot(2, "myBot", new Symbol('O'), BotDifficultyLevel.HARD));
 
         List<WinningStratergy> winningStratergies = new ArrayList<>();
 
@@ -39,8 +39,10 @@ public class Main {
         System.out.println("game started");
 
         while(game.getGameState() == GameState.IN_PROGRESS){
-            gameController.displayBoard(game);
             gameController.makeMove(game);
+            gameController.displayBoard(game);
+            boolean undoDone = gameController.checkForUndo(game);
+            if(undoDone) gameController.displayBoard(game);
         }
         gameController.displayBoard(game);
 

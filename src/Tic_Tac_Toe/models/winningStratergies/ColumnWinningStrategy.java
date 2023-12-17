@@ -21,6 +21,17 @@ public class ColumnWinningStrategy extends MapWinningStrategies{
         int column = cell.getColumn();
         updateCountMap(column, player);
     }
+
+    @Override
+    public void handleUndo(Board board, Move lastMove) {
+        Player player = lastMove.getPlayer();
+        Cell cell = lastMove.getCell();
+        int column = cell.getColumn();
+
+        handleMapUndo(column, player);
+
+    }
+
     @Override
     public boolean checkWinner(Board board, Move lastMove){
         Cell cell = lastMove.getCell();

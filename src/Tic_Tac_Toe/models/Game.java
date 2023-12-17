@@ -1,5 +1,6 @@
 package Tic_Tac_Toe.models;
 
+import Tic_Tac_Toe.enums.CellState;
 import Tic_Tac_Toe.enums.GameState;
 import Tic_Tac_Toe.enums.PlayerType;
 import Tic_Tac_Toe.models.exceptions.BotCountException;
@@ -11,6 +12,7 @@ import Tic_Tac_Toe.models.winningStratergies.WinningStratergy;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Scanner;
 
 public class Game {
     private Board board;
@@ -127,6 +129,49 @@ public class Game {
         this.setCurrentPlayerIndex(nextPlayerIndex);
     }
 
+    public boolean checkForUndo(){
+        // if last move performed by bot
+        int moveSize = this.moves.size();
+        Move lastMove = this.moves.get(moveSize - 1);
+
+        if(lastMove.getPlayer().getPlayerType() == PlayerType.BOT){
+            return false;
+        }
+        System.out.println("Do you want to Undo");
+        Scanner sc = new Scanner(System.in);
+        String input = sc.next();
+        if(input.equals("Y")){
+            performUndo();
+            return true;
+        }
+        return false;
+
+
+    }
+
+    public void performUndo(){
+        // Update moves list
+        int moveSize = this.moves.size();
+        Move lastMove = this.moves.get(moveSize - 1);
+        this.moves.remove(moveSize - 1);
+
+        // Reset player index
+        int currentIndex = this.currentPlayerIndex;
+        int nextIndex = currentIndex - 1;
+        if(nextIndex < 0) nextIndex = players.size() - 1;
+        this.setCurrentPlayerIndex(nextIndex);
+
+        // Reset cell
+
+        lastMove.getCell().setPlayer(null);
+        lastMove.getCell().setCellState(CellState.EMPTY);
+
+        // Decrease countMap
+        for(WinningStratergy winningStratergy : getWinningStrategies()){
+            winningStratergy.handleUndo(board, lastMove);
+        }
+    }
+
 
     public static Builder getBuilder(){
         return new Builder();
@@ -165,7 +210,7 @@ public class Game {
         }
 
         private void  validateBoardSize() throws DimensionException{
-            // size of board is atleast 3
+            // size of board is at least 3
             if(dimension < 3){
                 throw new DimensionException("Invalid board, Board size should be atleast 3");
             }

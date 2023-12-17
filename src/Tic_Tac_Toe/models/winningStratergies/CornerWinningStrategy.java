@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class CornerWinningStrategy implements WinningStratergy{
+public class CornerWinningStrategy implements WinningStratergy {
 
     @Override
     public void updateCount(Board board, Move lastMove) {
@@ -26,23 +26,23 @@ public class CornerWinningStrategy implements WinningStratergy{
         int row = cell.getRow();
         int column = cell.getColumn();
 
-        if(!(row==0 && column==0) &&
-                !(row==size-1 && column==0) &&
-                !(row==0 && column==size-1) &&
-                !(row==size-1 && column==size-1)){
+        if (!(row == 0 && column == 0) &&
+                !(row == size - 1 && column == 0) &&
+                !(row == 0 && column == size - 1) &&
+                !(row == size - 1 && column == size - 1)) {
             return false;
         }
 
         List<List<Cell>> actualBoard = board.getBoard();
         Cell topLeftCell = actualBoard.get(0).get(0);
-        Cell topRightCell = actualBoard.get(0).get(size-1);
-        Cell bottomLeftCell = actualBoard.get(size-1).get(0);
-        Cell bottomRightCell = actualBoard.get(size-1).get(size-1);
+        Cell topRightCell = actualBoard.get(0).get(size - 1);
+        Cell bottomLeftCell = actualBoard.get(size - 1).get(0);
+        Cell bottomRightCell = actualBoard.get(size - 1).get(size - 1);
 
-        if(topLeftCell.getCellState()== CellState.EMPTY ||
-                topRightCell.getCellState()==CellState.EMPTY  ||
-                bottomLeftCell.getCellState()==CellState.EMPTY  ||
-                bottomRightCell.getCellState()==CellState.EMPTY ){
+        if (topLeftCell.getCellState() == CellState.EMPTY ||
+                topRightCell.getCellState() == CellState.EMPTY ||
+                bottomLeftCell.getCellState() == CellState.EMPTY ||
+                bottomRightCell.getCellState() == CellState.EMPTY) {
             return false;
         }
 
@@ -51,17 +51,17 @@ public class CornerWinningStrategy implements WinningStratergy{
         char symbolAtBottomLeft = bottomLeftCell.getPlayer().getSymbol().getaChar();
         char symbolAtBottomRight = bottomRightCell.getPlayer().getSymbol().getaChar();
 
-        if(playerSymbol == symbolAtTopLeft &&
+        if (playerSymbol == symbolAtTopLeft &&
                 symbolAtTopLeft == symbolAtTopRight &&
                 symbolAtTopRight == symbolAtBottomLeft &&
-                symbolAtBottomLeft == symbolAtBottomRight){
+                symbolAtBottomLeft == symbolAtBottomRight) {
             return true;
         }
         return false;
     }
 
-//    @Override
-//    public void Undo(Board board, Move lastMove) {
-//
-//    }
+    @Override
+    public void handleUndo(Board board, Move lastMove) {
+
+    }
 }

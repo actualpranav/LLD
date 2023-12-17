@@ -6,4 +6,6 @@ import Tic_Tac_Toe.models.Move;
 public interface WinningStratergy {
     public boolean checkWinner(Board board, Move lastMove);
     public void updateCount(Board board, Move lastMove);
+
+    public void handleUndo(Board board, Move lastMove);
 }

@@ -29,6 +29,10 @@ public class GameController {
         game.makeMove();
     }
 
+    public boolean checkForUndo(Game game){
+        return  game.checkForUndo();
+    }
+
     public void checkWinner(Game game){
 
     }

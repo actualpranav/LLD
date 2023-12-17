@@ -41,6 +41,12 @@ public abstract class MapWinningStrategies implements WinningStratergy{
         return false;
     }
 
+    public void handleMapUndo(int key, Player player){
+        int existingCount = countMap.get(key).get(player);
+        int newCount = existingCount - 1;
+        countMap.get(key).put(player, newCount);
+    }
+
     // no need to override interface methods, abstract class implementing a interface.
 //    @Override
 //    public boolean checkWinner(Board board, Move lastMove) {
