@@ -16,10 +16,13 @@ public class BotPlayingStrategyFactory {
         else if(difficultyLevel == BotDifficultyLevel.MEDIUM){
             return new MediumBotPlayingStrategy(bot);
         }
-        else if(difficultyLevel == BotDifficultyLevel.HARD){
+//        else if(difficultyLevel == BotDifficultyLevel.HARD){
+//            return new HardBotPlayingStrategy(bot);
+//        }
+        else{
             return new HardBotPlayingStrategy(bot);
         }
-        return null;
+//        return null;
 
     }
 }

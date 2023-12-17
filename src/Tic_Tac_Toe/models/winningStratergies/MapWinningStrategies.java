@@ -1,14 +1,12 @@
 package Tic_Tac_Toe.models.winningStratergies;
 
-import Tic_Tac_Toe.models.Board;
-import Tic_Tac_Toe.models.Move;
 import Tic_Tac_Toe.models.Player;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public abstract class MapWinningStrategies implements WinningStratergy{
+public abstract class MapWinningStrategies implements WinningStrategy {
 
     private int dimension;
     private Map<Integer, Map<Player, Integer>> countMap;

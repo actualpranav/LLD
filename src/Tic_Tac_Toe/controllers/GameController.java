@@ -6,18 +6,18 @@ import Tic_Tac_Toe.models.exceptions.BotCountException;
 import Tic_Tac_Toe.models.exceptions.DimensionException;
 import Tic_Tac_Toe.models.exceptions.DuplicateSymbolException;
 import Tic_Tac_Toe.models.exceptions.PlayerCountException;
-import Tic_Tac_Toe.models.winningStratergies.WinningStratergy;
+import Tic_Tac_Toe.models.winningStratergies.WinningStrategy;
 
 import java.util.List;
 
 // Forwards request to respective model or service
 public class GameController {
-    // class without any atribute is called stateless class
-    public Game startGame(int dimension, List<Player> players, List<WinningStratergy> winningStratergies) throws PlayerCountException, DuplicateSymbolException, BotCountException, DimensionException {
+    // class without any attribute is called stateless class
+    public Game startGame(int dimension, List<Player> players, List<WinningStrategy> winningStrategies) throws PlayerCountException, DuplicateSymbolException, BotCountException, DimensionException {
         return Game.getBuilder().
                 setDimension(dimension).
                 setPlayers(players).
-                setWinningStrategies(winningStratergies).
+                setWinningStrategies(winningStrategies).
                 build();
     }
 
@@ -33,13 +33,13 @@ public class GameController {
         return  game.checkForUndo();
     }
 
-    public void checkWinner(Game game){
-
-    }
-
-    public void undo(Game game){
-
-    }
+//    public void checkWinner(Game game){
+//
+//    }
+//
+//    public void undo(Game game){
+//
+//    }
 
 
 }

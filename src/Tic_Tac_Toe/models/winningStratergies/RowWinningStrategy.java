@@ -9,10 +9,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class RowWinningStratergy extends MapWinningStrategies{
+public class RowWinningStrategy extends MapWinningStrategies{
 
 
-    public RowWinningStratergy(int dimension, List<Player> playerList) {
+    public RowWinningStrategy(int dimension, List<Player> playerList) {
         super(dimension, playerList);
     }
 

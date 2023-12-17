@@ -8,7 +8,8 @@ import Tic_Tac_Toe.models.BotPlayingStrategy.BotPlayingStrategy;
 public class Bot extends Player{
     public Bot(int id, String name, Symbol symbol, BotDifficultyLevel difficultyLevel) {
         super(id, name, symbol);
-        this.difficultyLevel = difficultyLevel;
+//        this.difficultyLevel = difficultyLevel;
+        setDifficultyLevel(difficultyLevel);
         this.setPlayerType(PlayerType.BOT);
     }
 
@@ -26,6 +27,7 @@ public class Bot extends Player{
     @Override
     public Move makeMove(Board board){
         BotPlayingStrategy playingStrategy = BotPlayingStrategyFactory.getBotPlayingStrategyFactory(this);
+//        assert playingStrategy != null;
         return playingStrategy.makeBotMove(board);
     }
 }

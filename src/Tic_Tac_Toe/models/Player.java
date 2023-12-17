@@ -12,10 +12,14 @@ public class Player {
     private PlayerType playerType;
 
     public Player(int id, String name, Symbol symbol) {
-        this.id = id;
-        this.name = name;
-        this.symbol = symbol;
-        this.playerType = PlayerType.HUMAN;
+//        this.id = id;
+        setId(id);
+//        this.name = name;
+        setName(name);
+//        this.symbol = symbol;
+        setSymbol(symbol);
+//        this.playerType = PlayerType.HUMAN;
+        setPlayerType(PlayerType.HUMAN);
     }
 
     public int getId() {

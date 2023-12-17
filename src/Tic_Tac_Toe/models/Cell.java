@@ -9,9 +9,11 @@ public class Cell {
     private Player player;
 
     public Cell(int row, int column){
-        this.row = row;
-        this.column = column;
-        this.cellState = CellState.EMPTY;
+        setRow(row);
+//        this.column = column;
+        setColumn(column);
+        setCellState(CellState.EMPTY);
+//        this.cellState = CellState.EMPTY;
 
     }
 

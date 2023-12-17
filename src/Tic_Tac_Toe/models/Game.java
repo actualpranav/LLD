@@ -7,7 +7,7 @@ import Tic_Tac_Toe.models.exceptions.BotCountException;
 import Tic_Tac_Toe.models.exceptions.DimensionException;
 import Tic_Tac_Toe.models.exceptions.DuplicateSymbolException;
 import Tic_Tac_Toe.models.exceptions.PlayerCountException;
-import Tic_Tac_Toe.models.winningStratergies.WinningStratergy;
+import Tic_Tac_Toe.models.winningStratergies.WinningStrategy;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -24,17 +24,25 @@ public class Game {
     private Player winner;
     private List<Move> moves;
     private int currentPlayerIndex;
-    private List<WinningStratergy> winningStrategies;
+    private List<WinningStrategy> winningStrategies;
 
     private Game(Builder builder){
-        this.players = builder.players;
-        this.winningStrategies = builder.winningStrategies;
-        this.board = new Board(builder.dimension);
+//        this.players = builder.players;
+        setPlayers(builder.players);
+//        this.winningStrategies = builder.winningStrategies;
+        setWinningStrategies(builder.winningStrategies);
 
-        this.gameState = GameState.IN_PROGRESS;
-        this.winner = null;
-        this.moves = new ArrayList<>();
-        this.currentPlayerIndex = 0;
+//        this.board = new Board(builder.dimension);
+        setBoard(new Board(builder.dimension));
+
+//        this.gameState = GameState.IN_PROGRESS;
+        setGameState(GameState.IN_PROGRESS);
+//        this.winner = null;
+        setWinner(null);
+//        this.moves = new ArrayList<>();
+        setMoves(new ArrayList<>());
+//        this.currentPlayerIndex = 0;
+        setCurrentPlayerIndex(0);
     }
 
     public Board getBoard() {
@@ -85,40 +93,40 @@ public class Game {
         this.currentPlayerIndex = currentPlayerIndex;
     }
 
-    public List<WinningStratergy> getWinningStrategies() {
+    public List<WinningStrategy> getWinningStrategies() {
         return winningStrategies;
     }
 
-    public void setWinningStrategies(List<WinningStratergy> winningStrategies) {
+    public void setWinningStrategies(List<WinningStrategy> winningStrategies) {
         this.winningStrategies = winningStrategies;
 //        return this;
     }
 
     public void makeMove(){
-        int currentPlayerIndex = this.getCurrentPlayerIndex();
-        Player currentPlayer = this.getPlayers().get(currentPlayerIndex);
+        int currentPlayerIndex = getCurrentPlayerIndex();
+        Player currentPlayer = getPlayers().get(currentPlayerIndex);
 
 
         // Update list of moves
-        Move move = currentPlayer.makeMove(this.getBoard());
-        this.moves.add(move);
+        Move move = currentPlayer.makeMove(getBoard());
+        getMoves().add(move);
 
         //update the hashmap for the board
-        for(WinningStratergy winningStratergy : this.winningStrategies){
-            winningStratergy.updateCount(this.getBoard(), move);
+        for(WinningStrategy winningStrategy : getWinningStrategies()){
+            winningStrategy.updateCount(getBoard(), move);
 
         }
 
         // check for winner
-        for(WinningStratergy winningStratergy : this.winningStrategies){
-            if(winningStratergy.checkWinner(board,move)){
-                this.setWinner(currentPlayer);
-                this.setGameState(GameState.COMPLETED);
+        for(WinningStrategy winningStrategy : getWinningStrategies()){
+            if(winningStrategy.checkWinner(board,move)){
+                setWinner(currentPlayer);
+                setGameState(GameState.COMPLETED);
                 return;
             }
         }
-        if(this.moves.size() == board.getSize() * board.getSize()){
-            this.setGameState(GameState.DRAW);
+        if(getMoves().size() == board.getSize() * board.getSize()){
+            setGameState(GameState.DRAW);
             return;
         }
 
@@ -131,8 +139,8 @@ public class Game {
 
     public boolean checkForUndo(){
         // if last move performed by bot
-        int moveSize = this.moves.size();
-        Move lastMove = this.moves.get(moveSize - 1);
+        int moveSize = getMoves().size();
+        Move lastMove = getMoves().get(moveSize - 1);
 
         if(lastMove.getPlayer().getPlayerType() == PlayerType.BOT){
             return false;
@@ -151,12 +159,12 @@ public class Game {
 
     public void performUndo(){
         // Update moves list
-        int moveSize = this.moves.size();
-        Move lastMove = this.moves.get(moveSize - 1);
-        this.moves.remove(moveSize - 1);
+        int moveSize = getMoves().size();
+        Move lastMove = getMoves().get(moveSize - 1);
+        getMoves().remove(moveSize - 1);
 
         // Reset player index
-        int currentIndex = this.currentPlayerIndex;
+        int currentIndex = getCurrentPlayerIndex();
         int nextIndex = currentIndex - 1;
         if(nextIndex < 0) nextIndex = players.size() - 1;
         this.setCurrentPlayerIndex(nextIndex);
@@ -167,8 +175,8 @@ public class Game {
         lastMove.getCell().setCellState(CellState.EMPTY);
 
         // Decrease countMap
-        for(WinningStratergy winningStratergy : getWinningStrategies()){
-            winningStratergy.handleUndo(board, lastMove);
+        for(WinningStrategy winningStrategy : getWinningStrategies()){
+            winningStrategy.handleUndo(board, lastMove);
         }
     }
 
@@ -179,7 +187,7 @@ public class Game {
     public static class Builder{
         private int dimension;
         private List<Player> players;
-        private List<WinningStratergy> winningStrategies;
+        private List<WinningStrategy> winningStrategies;
 
         public Builder setDimension(int dimension){
             this.dimension = dimension;
@@ -191,7 +199,7 @@ public class Game {
             return this;
         }
 
-        public Builder setWinningStrategies(List<WinningStratergy> winningStrategies){
+        public Builder setWinningStrategies(List<WinningStrategy> winningStrategies){
             this.winningStrategies = winningStrategies;
             return this;
         }

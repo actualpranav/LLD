@@ -19,13 +19,12 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws BotCountException, DimensionException, PlayerCountException, DuplicateSymbolException {
-        int dimension = 0;
+//        int dimension = 0;
         GameController gameController = new GameController();
         List<Player> players = new ArrayList<>();
-//        userInput(players, dimension);
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter the size of tic tac toe board between (3 - 27): ");
-        dimension = sc.nextInt();
+        int dimension = sc.nextInt();
         if(dimension > 27){
             System.out.println("board size greater than 27, game over");
             return;
@@ -34,14 +33,14 @@ public class Main {
         players = userInput(players, dimension);
 
 
-        List<WinningStratergy> winningStratergies = new ArrayList<>();
+        List<WinningStrategy> winningStrategies = new ArrayList<>();
 
-        winningStratergies.add(new RowWinningStratergy(dimension, players));
-        winningStratergies.add(new ColumnWinningStrategy(dimension, players));
-        winningStratergies.add(new DiagonalWinningStrategy(players));
-        winningStratergies.add(new CornerWinningStrategy());
+        winningStrategies.add(new RowWinningStrategy(dimension, players));
+        winningStrategies.add(new ColumnWinningStrategy(dimension, players));
+        winningStrategies.add(new DiagonalWinningStrategy(players));
+        winningStrategies.add(new CornerWinningStrategy());
 
-        Game game = gameController.startGame(dimension, players, winningStratergies);
+        Game game = gameController.startGame(dimension, players, winningStrategies);
         System.out.println("game started");
 
         while(game.getGameState() == GameState.IN_PROGRESS){
@@ -68,7 +67,7 @@ public class Main {
         if(numberOfBots > dimension - 1){
             System.out.println("resetting bot count to " + (dimension -1));
             numberOfBots = dimension - 1;
-            System.out.println("Press 1 if you wish to coninue");
+            System.out.println("Press 1 if you wish to continue");
             int continueInput = sc.nextInt();
             if(continueInput != 1) return null;
         }

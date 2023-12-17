@@ -10,7 +10,8 @@ public class Board {
     private List<List<Cell>> board;
 
     Board(int dimension){
-        this.size = dimension;
+//        this.size = dimension;
+        setSize(dimension);
         initialiseBoard();
     }
 
@@ -58,7 +59,8 @@ public class Board {
             }
             System.out.println();
             for(int j = 0; i < size - 1 && j < size; j++){
-                System.out.print("----");
+                if(j == size - 1) System.out.print("----");
+                else System.out.print("---=");
             }
             System.out.println();
         }
