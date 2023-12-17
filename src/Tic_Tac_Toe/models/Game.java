@@ -137,10 +137,10 @@ public class Game {
         if(lastMove.getPlayer().getPlayerType() == PlayerType.BOT){
             return false;
         }
-        System.out.println("Do you want to Undo");
+        System.out.println("Press 1 if you wish to Undo your last move, \nOr press 0 to continue");
         Scanner sc = new Scanner(System.in);
-        String input = sc.next();
-        if(input.equals("Y")){
+        int input = sc.nextInt();
+        if(input == 1){
             performUndo();
             return true;
         }
@@ -204,15 +204,19 @@ public class Game {
                     botCount++;
                 }
             }
-            if(botCount > 1){
-                throw new BotCountException("Bot count is more than 1, Invalid game");
+            if(botCount > 26){
+                throw new BotCountException("Bot count is more than 26, Invalid game");
             }
         }
 
         private void  validateBoardSize() throws DimensionException{
             // size of board is at least 3
             if(dimension < 3){
-                throw new DimensionException("Invalid board, Board size should be atleast 3");
+                throw new DimensionException("Invalid board, Board size should be at least 3");
+            }
+
+            else if(dimension > 27){
+                throw new DimensionException("Invalid board, Board size should be less than 27");
             }
         }
 

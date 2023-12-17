@@ -15,16 +15,24 @@ import Tic_Tac_Toe.models.winningStratergies.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws BotCountException, DimensionException, PlayerCountException, DuplicateSymbolException {
-        int dimension = 3;
-
+        int dimension = 0;
         GameController gameController = new GameController();
         List<Player> players = new ArrayList<>();
-        players.add(new Player(1, "Pranav", new Symbol('X')));
-//        players.add(new Player(2, "yoko", new Symbol('O')));
-        players.add(new Bot(2, "myBot", new Symbol('O'), BotDifficultyLevel.HARD));
+//        userInput(players, dimension);
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter the size of tic tac toe board between (3 - 27): ");
+        dimension = sc.nextInt();
+        if(dimension > 27){
+            System.out.println("board size greater than 27, game over");
+            return;
+        }
+
+        players = userInput(players, dimension);
+
 
         List<WinningStratergy> winningStratergies = new ArrayList<>();
 
@@ -33,9 +41,7 @@ public class Main {
         winningStratergies.add(new DiagonalWinningStrategy(players));
         winningStratergies.add(new CornerWinningStrategy());
 
-        Game game = gameController.
-                startGame(dimension, players, winningStratergies);
-//        Game game = gameController.startGame(3, players, winningStratergies);
+        Game game = gameController.startGame(dimension, players, winningStratergies);
         System.out.println("game started");
 
         while(game.getGameState() == GameState.IN_PROGRESS){
@@ -52,5 +58,35 @@ public class Main {
         if(game.getGameState() == GameState.DRAW){
             System.out.println("Game is a Draw");
         }
+    }
+
+    public static List<Player> userInput(List<Player> players, int dimension){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("This game needs " + (dimension - 1) + " players");
+        System.out.println("How many bots would you like : ");
+        int numberOfBots = sc.nextInt();
+        if(numberOfBots > dimension - 1){
+            System.out.println("resetting bot count to " + (dimension -1));
+            numberOfBots = dimension - 1;
+            System.out.println("Press 1 if you wish to coninue");
+            int continueInput = sc.nextInt();
+            if(continueInput != 1) return null;
+        }
+        int realPlayers = dimension - numberOfBots;
+        char startingSymbol = 'A';
+        for(int i = 0; i < numberOfBots && i < dimension - 1; i++){
+            String botNameGenerator = "Bot" + i;
+            char BotSymbolGenerator = startingSymbol;
+            startingSymbol++;
+            players.add(new Bot(i + 1, botNameGenerator, new Symbol(BotSymbolGenerator), BotDifficultyLevel.MEDIUM));
+        }
+        for(int i = 0; i < realPlayers && i < dimension - 1 - numberOfBots; i++){
+            System.out.println("Enter player" + (i +1) + "'s Name");
+            String realPlayerName = sc.next();
+            char realPlayerCharacter = startingSymbol;
+            startingSymbol++;
+            players.add(new Player(i + numberOfBots + 1, realPlayerName, new Symbol(realPlayerCharacter)));
+        }
+        return players;
     }
 }

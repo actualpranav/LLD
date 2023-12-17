@@ -69,11 +69,13 @@ public class Player {
         while (true) {
             System.out.println("Player " + this.getName() + ", make your move");
             Scanner sc = new Scanner(System.in);
-            System.out.println("Enter Row: ");
+            System.out.println("Enter Row Between (1 - "+board.getSize()+")");
             int row = sc.nextInt();
+            row--;
 
-            System.out.println("Enter Column ");
+            System.out.println("Enter Column Between(1 - "+board.getSize()+")");
             int column = sc.nextInt();
+            column--;
             // move validator
             if (!isValidInput(row, column, board.getSize())) continue;
 
