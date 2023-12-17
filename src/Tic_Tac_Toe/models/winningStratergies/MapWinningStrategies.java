@@ -8,8 +8,8 @@ import java.util.Map;
 
 public abstract class MapWinningStrategies implements WinningStrategy {
 
-    private int dimension;
-    private Map<Integer, Map<Player, Integer>> countMap;
+    private final int dimension;
+    private final Map<Integer, Map<Player, Integer>> countMap;
 
     public MapWinningStrategies(int dimension, List<Player> playerList){
         this.dimension = dimension;
@@ -35,8 +35,7 @@ public abstract class MapWinningStrategies implements WinningStrategy {
     }
 
     public boolean checkCountMapForWinner(int key, Player player, int boardSize){
-        if(countMap.get(key).get(player) == boardSize) return  true;
-        return false;
+        return countMap.get(key).get(player) == boardSize;
     }
 
     public void handleMapUndo(int key, Player player){

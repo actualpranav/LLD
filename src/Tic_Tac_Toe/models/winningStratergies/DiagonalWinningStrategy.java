@@ -5,9 +5,7 @@ import Tic_Tac_Toe.models.Cell;
 import Tic_Tac_Toe.models.Move;
 import Tic_Tac_Toe.models.Player;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class DiagonalWinningStrategy extends MapWinningStrategies{
 
@@ -46,9 +44,7 @@ public class DiagonalWinningStrategy extends MapWinningStrategies{
         }
 
         if(row + column == board.getSize() - 1){
-            if (checkCountMapForWinner(1, player, board.getSize())) {
-                return true;
-            }
+            return checkCountMapForWinner(1, player, board.getSize());
         }
 
         return false;

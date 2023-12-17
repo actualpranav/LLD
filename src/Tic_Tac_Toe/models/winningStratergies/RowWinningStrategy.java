@@ -5,9 +5,7 @@ import Tic_Tac_Toe.models.Cell;
 import Tic_Tac_Toe.models.Move;
 import Tic_Tac_Toe.models.Player;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class RowWinningStrategy extends MapWinningStrategies{
 
